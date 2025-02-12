@@ -2,6 +2,7 @@
 import argparse
 import sys
 import re
+import shlex  # Handles shell argument parsing correctly
 from sympy import sympify, SympifyError
 
 # Safe Calculator Function using sympy
@@ -56,7 +57,8 @@ def main():
 
     elif args.command == "c":
         try:
-            expression = " ".join(args.expression)  # Join arguments into a full expression
+            # Fix: Properly join arguments while preserving operators and spaces
+            expression = " ".join(args.expression)
             result = calculate(expression)
             print(result)
         except ValueError as e:
